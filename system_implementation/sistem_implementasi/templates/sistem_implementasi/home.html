@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="kelompok4">
+        <meta name="description" content="Sebuah Website untuk Melihat Track Record Perkembangan Software untuk dijadikan Penelitian">
+        <meta name="keywords" content="website, web, django, bootstrap, css, scss, sass, webpro, kelompok4">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+        <title>Sistem Implementasi</title>
+        <link rel="icon" href="https://media.istockphoto.com/id/1352367851/vector/dx-vector-icon-illustration.jpg?s=612x612&w=0&k=20&c=_m2prNR3aJFKZ-AH5kVKMr9RGmBnKoWU6J-ExRMBaC0=" type="image/x-icon">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
+            
+            .navbar {
+              background-color: rgba(255, 255, 255, 0.25);
+              height: 80px;
+              margin: 20px;
+              border-radius: 16px;
+              padding: 0.5rem;
+              backdrop-filter: blur(1px);
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .navbar-brand {
+                font-weight: 500;
+                color: #8000FF;
+                font-size: 24px;
+                transition: 0.3s color;
+            }
+            .logout-button {
+                background-color: #9A2EFE;
+                color: #fff;
+                font-size: 14px;
+                padding: 8px 20px;
+                border-radius: 50px;
+                text-decoration: none;
+                transition: 0.3s background-color;
+            }
+            .logout-button:hover {
+                background-color: #9F81F7;
+            }
+            .navbar-toggler {
+                border: none;
+                font-size: 1.25rem;
+            }
+            .navbar-toggler:focus, .btn-close:focus {
+                box-shadow: none;
+                outline: none;
+            }
+            .nav-link {
+                color: #fff;
+                font-weight: 500;
+                position: relative;
+            }
+            .nav-link:hover, .nav-link.active {
+                color: #777888;
+            }
+
+            @media (min-width: 991px){
+                .nav-link::before {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 2px;
+                    background-color: #8000FF;
+                    visibility: hidden;
+                    transition: 0.3s ease-in-out;
+                }
+                .nav-link:hover::before, .nav-link.active::before {
+                    width: 100%;
+                    visibility: visible;
+                }
+            }
+            .konten-section {
+                background: url(https://img.freepik.com/free-vector/3d-style-black-background-with-paper-layer_206725-669.jpg) no-repeat center;
+                background-size: cover;
+                width: 100%;
+                height: 100vh;
+                position: relative;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .konten-section::before {
+                background-color: rgba(0, 0, 0, 0.6);
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            .kontainer {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            .bi {
+                margin-right: 5px;
+            }
+            .bttn1 {
+                background-color: #8000FF;
+                color: #fff;
+            }
+            .bttn1:hover {
+                background-color: #9F81F7;
+            }
+            .bttn2 {
+                background-color: #DF0101;
+                color: #fff;
+            }
+            .bttn2:hover {
+                background-color: #FE2E2E;
+            }
+            .bttn3 {
+                background-color: #86E9FF;
+                color: #555555;
+            }
+            .bttn3:hover {
+                background-color: #07D2FF;
+            }
+            .bttn4 {
+                background-color: #7AFF97;
+                color: #555555;
+            }
+            .bttn4:hover {
+                background-color: #36FF62;
+            }
+            .bttn5 {
+                background-color: #FFC178;
+                color: #555555;
+            }
+            .bttn5:hover {
+                background-color: #FF9E2C;
+            }
+            .bttn6 {
+                background-color: #FF6969;
+                color: #555555;
+            }
+            .bttn6:hover {
+                background-color: #FF2F2F;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigasi -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container" style="font-family: 'Kalam', cursive;">
+              <i><a class="navbar-brand me-auto" href="{% url 'home' %}">Sistem Implementasi</a></i>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                    <li class="nav-item">
+                      <a class="nav-link mx-lg-2 active" id="nav-home" data-target="#homeContent" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link mx-lg-2" id="nav-transactiondata" data-target="#transactiondataContent" href="#">Transaction Data</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link mx-lg-2" id="nav-environtmentdata" data-target="#environtmentdataContent" href="#">Environtment Data</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link mx-lg-2" id="nav-performancemonitoring" data-target="#performancemonitoringContent" href="#">Performance Monitoring</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <a href="" class="logout-button">Keamanan</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+        </nav>
+        
+        <!-- Gunta Ganti Kontent -->
+        <section class="konten-section">
+          <div class="kontainer">
+            <div id="homeContent" style="font-family: 'Kavoon', cursive;">
+                <h1>Tips Menggunakan Aplikasi & Informasi Lainnya Terkait Web Ini</h1>
+            </div>        
+            <div id="transactiondataContent" style="display: none; font-family: 'Kavoon', cursive;">
+                <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" id="searchForm" method="post" action="{% url 'search_github_links' %}">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <div data-mdb-input-init class="form-outline">
+                            <label for="inputCari" class="form-label">Cari Disini</label>
+                            <input type="text" class="form-control" id="inputCari" name="query" placeholder="Tempel ID Sistem Cerdas Disini Untuk Disimpan" style="width: 500px;">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn bttn1" style="margin-top: 32px;"><i class="bi bi-search"></i>Cari</button>
+                    </div>
+                </form>
+                
+                <div id="resultMessage"></div>
+            </div>
+            <div id="environtmentdataContent" style="display: none; font-family: 'Kavoon', cursive;">
+                <h1>Environtment Data</h1>
+                <div id="environtmentDataFiles"></div>
+            </div>
+            <div id="performancemonitoringContent" style="display: none; font-family: 'Kavoon', cursive;">
+                <h1>Nampilin Hasil Pekerjaan Dari Web Intelegen Creation</h1>
+            </div>
+          </div>
+        </section>
+        <script>
+            $(document).ready(function() {
+                $(".nav-link").click(function(event) {
+                    event.preventDefault();
+                    $(".nav-link").removeClass("active");
+                    $(this).addClass("active");
+                    
+                    var target = $(this).data("target");
+                    $(".konten-section > .kontainer > div").hide();
+                    $(target).show();
+                });
+            });  
+            $(document).ready(function() {
+                $("#searchForm").on("submit", function(event) {
+                    event.preventDefault();
+                    var form = $(this);
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function(response) {
+                            if (response.success) {
+                                $("#resultMessage").html(
+                                    '<div class="alert alert-success">' + response.success + '</div>' +
+                                    '<div class="mt-3">' +
+                                    '<i class="bi bi-file-earmark"></i> ' +
+                                    '<a href="' + response.file_url + '" download>' + response.file_name + '</a>' +
+                                    ' <button class="btn btn-primary" onclick="window.location.href=\'' + response.file_url + '\'">Unduh</button>' +
+                                    '</div>'
+                                );
+                                $("#environtmentdataContent").show();
+                                $("#environtmentDataFiles").html(
+                                    '<div class="mt-3">' +
+                                    '<i class="bi bi-file-earmark"></i> ' +
+                                    '<a href="' + response.file_url + '" download>' + response.file_name + '</a>' +
+                                    ' <button class="btn btn-primary" onclick="deployFile(\'' + response.file_url + '\')">Deploy Sistem Cerdas</button>' +
+                                    '</div>'
+                                );
+                            } else if (response.error) {
+                                $("#resultMessage").html('<div class="alert alert-danger">' + response.error + '</div>');
+                            }
+                            if (response.github_link) {
+                                console.log("GitHub Link: " + response.github_link);
+                            }
+                        },
+                        error: function(response) {
+                            $("#resultMessage").html('<div class="alert alert-danger">Error occurred while searching</div>');
+                        }
+                    });
+                });
+            });    
+            function deployFile(fileUrl) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "deploy_to_vercel" %}',
+                    data: {
+                        'file_url': fileUrl,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $("#environtmentDataFiles").append(
+                                '<div class="alert alert-success mt-3">' + response.success + '<br><a href="' + response.deployment_url + '" target="_blank">View Deployment</a></div>'
+                            );
+                        } else if (response.error) {
+                            $("#environtmentDataFiles").append('<div class="alert alert-danger mt-3">' + response.error + '</div>');
+                        }
+                    },
+                    error: function(response) {
+                        $("#environtmentDataFiles").append('<div class="alert alert-danger mt-3">Error occurred while deploying</div>');
+                    }
+                });
+            }   
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    </body>
+</html>
